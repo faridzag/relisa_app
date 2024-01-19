@@ -37,7 +37,7 @@ class EventController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:events|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'slug' => 'required|unique:events|max:255',
             'start_date' => 'required|date',
             'location' => 'required|max:255',
@@ -86,13 +86,13 @@ class EventController extends Controller
         if (!$event) {
             return response()->json([
                 'status' => false,
-                'message' => 'Event not found'
+                'message' => 'Event tidak Ditemukan'
             ], 404);
         }
 
         return response()->json([
             'status' => true,
-            'message' => 'Event details',
+            'message' => 'Detail Event',
             'data' => $event
         ], 200);
     }

@@ -26,7 +26,8 @@
         <hr>
 
         <div class="mt-8 py-3 prose text-gray-800 text-lg text-justify">
-            {!! $event->description !!}
+            <span class="text-gray-500 text-sm">Lokasi: {!! $event->location !!}</span>
+            <p>{!! $event->description !!}</p>
         </div>
         <livewire:event-registrations :key="$event->id" :$event />
 

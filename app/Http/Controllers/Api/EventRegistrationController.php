@@ -40,7 +40,7 @@ class EventRegistrationController extends Controller
             'event_id' => 'required|exists:events,id',
             'message' => 'nullable|string|max:255',
             'status' => 'sometimes|in:accepted,rejected,pending',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         if ($validator->fails()) {
