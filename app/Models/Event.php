@@ -22,7 +22,7 @@ class Event extends Model
         'published_at',
         'location',
         'description',
-        'pesan',
+        'message',
         'status',
         'user_id',
     ];

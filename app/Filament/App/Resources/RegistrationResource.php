@@ -45,7 +45,7 @@ class RegistrationResource extends Resource
                     ->label('Pendaftar')
                     ->searchable()
                     ->required()
-                    ->options(User::where('role', 'USER')->pluck('name', 'id'))
+                    ->options(User::where('role', 'VOLUNTEER')->pluck('name', 'id'))
                     ->hiddenOn('edit'),
                     Select::make('event_id')
                     ->label('Acara')
@@ -141,7 +141,7 @@ class RegistrationResource extends Resource
                 ->schema([
                     TextEntry::make('event.title')->label('Acara')->columnSpan(2),
                     TextEntry::make('status')->columnSpan(1),
-                    TextEntry::make('event.pesan')->label('Info Lanjut')->html()
+                    TextEntry::make('event.message')->label('Info Lanjut')->html()
                     ->columnSpanFull()
                     ->visible(fn (Registration $record) => $record->status === 'accepted' || $record->status === 'present')
                 ])->columns(3),

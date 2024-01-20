@@ -26,7 +26,7 @@ class ListEvents extends ListRecords
                 ->withColumns([
                     Column::make('updated_at'),
                 ])
-                ->except(['image', 'slug', 'deleted_at', 'pesan'])
+                ->except(['image', 'slug', 'deleted_at', 'message'])
             ]),
         ];
     }

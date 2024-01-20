@@ -92,7 +92,7 @@ class EventResource extends Resource
                     ->columnSpan(2)
                     ->required()
                     ->maxLength(255),
-                    RichEditor::make('pesan')
+                    RichEditor::make('message')
                     ->label('pesan')
                     ->columnSpanFull(),
                     Select::make('status')
@@ -143,7 +143,7 @@ class EventResource extends Resource
                 TextColumn::make('status')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('pesan')
+                TextColumn::make('message')
                     ->label('Info Lanjut')
                     ->words(2)
                     ->html(),

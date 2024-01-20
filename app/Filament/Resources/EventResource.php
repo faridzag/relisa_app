@@ -144,7 +144,7 @@ class EventResource extends Resource
                 TextColumn::make('status')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('pesan')
+                TextColumn::make('message')
                     ->label('Info Lanjut')
                     ->words(2)
                     ->html(),

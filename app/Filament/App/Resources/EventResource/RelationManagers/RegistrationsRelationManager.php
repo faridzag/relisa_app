@@ -31,7 +31,7 @@ class RegistrationsRelationManager extends RelationManager
                     ->label('Pendaftar')
                     ->searchable()
                     ->required()
-                    ->options(User::where('role', 'USER')->pluck('name', 'id'))
+                    ->options(User::where('role', 'VOLUNTEER')->pluck('name', 'id'))
                     ->hiddenOn('edit'),
                     Select::make('event_id')
                     ->label('Acara')

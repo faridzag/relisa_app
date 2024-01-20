@@ -11,7 +11,7 @@ Route::get('/event', [EventController::class, 'index']);
 Route::get('/event/{id}', [EventController::class, 'show']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('/event', [EventController::class, 'create']);
+    Route::post('/event', [EventController::class, 'store']);
     Route::put('/event/{id}', [EventController::class, 'update']);
     Route::delete('/event/{id}', [EventController::class, 'destroy']);
     Route::apiResource('registration', EventRegistrationController::class);

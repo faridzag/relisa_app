@@ -22,13 +22,13 @@ class User extends Authenticatable implements FilamentUser
 
     const ROLE_ADMIN = 'ADMIN';
     const ROLE_EVENTMANAGER = 'EVENT-MANAGER';
-    const ROLE_USER = 'USER';
+    const ROLE_USER = 'VOLUNTEER';
     const ROLE_DEFAULT = self::ROLE_USER;
 
     const ROLES = [
         self::ROLE_ADMIN => 'Admin',
         self::ROLE_EVENTMANAGER => 'Event Manager',
-        self::ROLE_USER => 'User',
+        self::ROLE_USER => 'Volunteer',
     ];
 
     /**

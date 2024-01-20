@@ -25,7 +25,7 @@ class AuthenticationController extends Controller
                 'message' => ['Kredensial Tidak Ditemukan.'],
             ]);
         }
-        return $user->createToken('user login')->plainTextToken;
+        return response()->json(['message' => 'Berhasil Login', 'token' => $user->createToken('user login')->plainTextToken], 200);
     }
 
     public function logout(Request $request)

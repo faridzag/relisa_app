@@ -14,7 +14,7 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => rand(1,6),
+            'user_id' => rand(1,5),
             'title' => $this->faker->sentence(),
             'slug' => $this->faker->slug(3),
             'image' => $this->faker->imageUrl(),

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('start_date');
             $table->string('location');
             $table->text('description');
-            $table->text('pesan')->nullable();
+            $table->text('message')->nullable();
             $table->enum('status', ['open', 'closed', 'ongoing', 'done']);
             $table->dateTime('published_at')->nullable();
             $table->softDeletes();

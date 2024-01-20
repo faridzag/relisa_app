@@ -7,13 +7,11 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use PHPUnit\Framework\Exception;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         try {
@@ -54,7 +52,7 @@ class EventController extends Controller
 
         try {
             $payload = $validator->validated();
-            $imagePath = $request->file('image')->store('event_images');
+            //$imagePath = $request->file('image')->store('storage/events/thumbnail');
             $event = Event::create([
                 'title' => $payload['title'],
                 'slug' => $payload['slug'],
@@ -62,7 +60,7 @@ class EventController extends Controller
                 'location' => $payload['location'],
                 'description' => $payload['description'],
                 'status' => $payload['status'],
-                'image' => $imagePath,
+                //'image' => $imagePath,
                 'user_id' => Auth::user()->id,
             ]);
             return response()->json([
@@ -167,7 +165,6 @@ class EventController extends Controller
     public function destroy(string $id)
     {
         $event = Event::find($id);
-
         if (!$event) {
             return response()->json([
                 'status' => false,
