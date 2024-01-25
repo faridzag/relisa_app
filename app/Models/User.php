@@ -81,7 +81,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'registrations');
     }
 
     public function createdEvents()

@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use PHPUnit\Framework\Exception;
+use Illuminate\Support\Facades\File;
 
 class EventController extends Controller
 {
@@ -52,7 +54,7 @@ class EventController extends Controller
 
         try {
             $payload = $validator->validated();
-            //$imagePath = $request->file('image')->store('storage/events/thumbnail');
+            $imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
             $event = Event::create([
                 'title' => $payload['title'],
                 'slug' => $payload['slug'],
@@ -60,9 +62,11 @@ class EventController extends Controller
                 'location' => $payload['location'],
                 'description' => $payload['description'],
                 'status' => $payload['status'],
-                //'image' => $imagePath,
+                'image' => 'events/thumbnails/' . $imageName,
                 'user_id' => Auth::user()->id,
             ]);
+
+            Storage::disk('public')->put('events/thumbnails/'. $imageName, file_get_contents($request->image));
             return response()->json([
                 'status' => true,
                 'message' => 'Event berhasil dibuat',
@@ -103,7 +107,6 @@ class EventController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:events,title,' . $id . '|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'slug' => 'required|unique:events,slug,' . $id . '|max:255',
             'start_date' => 'required|date',
             'location' => 'required|max:255',
             'description' => 'required',
@@ -130,20 +133,24 @@ class EventController extends Controller
             $payload = $validator->validated();
 
             // Untuk update image
-            $imagePath = $event->image;
             if ($request->hasFile('image')) {
-                Storage::delete($event->image);
-                $imagePath = $request->file('image')->store('event_images');
+                // Hapus gambar
+                if ($event->image !== null && Storage::disk('public')->exists($event->image)) {
+                    Storage::disk('public')->delete($event->image);
+                }
+
+                // Simpan gambar baru
+                $imageName = Str::random(32) . '.' . $request->image->getClientOriginalExtension();
+                $event->image = $imageName;
+                Storage::disk('public')->put('events/thumbnails/' . $imageName, file_get_contents($request->image));
             }
 
             $event->update([
                 'title' => $payload['title'],
-                'slug' => $payload['slug'],
                 'start_date' => $payload['start_date'],
                 'location' => $payload['location'],
                 'description' => $payload['description'],
-                'status' => $payload['status'],
-                'image' => $imagePath
+                'status' => $payload['status']
             ]);
 
             return response()->json([
@@ -173,8 +180,8 @@ class EventController extends Controller
         }
 
         try {
-            if ($event->image) {
-                Storage::delete($event->image);
+            if ($event->image !== null && Storage::disk('public')->exists($event->image)) {
+                Storage::disk('public')->delete($event->image);
             }
 
             $event->delete();

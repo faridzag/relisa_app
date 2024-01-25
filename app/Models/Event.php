@@ -42,6 +42,11 @@ class Event extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'registrations');
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);
